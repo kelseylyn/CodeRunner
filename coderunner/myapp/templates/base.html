@@ -4,12 +4,14 @@
 <title>{{ title }}</title>
 </head>
 <body>
-<ul>
   {{ body }}
+  <ul>
   {% for item in item_list %}
     <li>{{ item }}</li>
-    {% endfor %}
-</ul>
+  {% endfor %}
+  </ul>
+  {% block body %}
+  {% endblock %}
 
 </body>
 </html>
