@@ -1,7 +1,8 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-<title>{{ title }}</title>
+  <title>{{ title }}</title>
 </head>
 <body>
   {{ body }}
@@ -12,6 +13,16 @@
   </ul>
   {% block body %}
   {% endblock %}
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static "static/css/app.css" %}"/>
+  <script src="{% static "js/vendor/jquery.js" %}"></script>
+  <script src="{% static "js/vendor/what-input.js" %}"></script>
+  <script src="{% static "js/vendor/foundation.js" %}"></script>
+  <script src="{% static "js/app.js" %}"></script>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="{% static "js/challenge.js" %}"></script>
 
 </body>
 </html>

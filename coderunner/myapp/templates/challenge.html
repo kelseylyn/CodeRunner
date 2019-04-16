@@ -1,5 +1,13 @@
 {% include "base.html" %}
 
+<!--{% block challenge_head %} -->
+<style>
+    * { padding: 10px; margin: 0; }
+    canvas { background: #eee; display: block; margin: 0; float: right; }
+</style>
+<!--{% endblock %} -->
+
 {% block body %}
+<canvas id="challengeGame" width="400" height="400"</canvas>
 <p> You are on the {{ page }} </p>
 {% endblock %}
