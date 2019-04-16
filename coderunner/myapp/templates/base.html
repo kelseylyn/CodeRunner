@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>{{ title }}</title>
+<title> CodeRunner</title>
 </head>
 <body>
-  {{ body }}
+  <h4>CodeRunner</h4>
   <ul>
-  {% for item in item_list %}
-    <li>{{ item }}</li>
-  {% endfor %}
+    <li><a href="http://localhost:8000/">Home</a></li>
+    <li><a href="http://localhost:8000/challenge">Challenge</a></li>
+    <li><a href="http://localhost:8000/admin">Admin</a></li
   </ul>
-  {% block body %}
-  {% endblock %}
 
+
+  <p> You are on the {{ page }} </p>
 </body>
 </html>
