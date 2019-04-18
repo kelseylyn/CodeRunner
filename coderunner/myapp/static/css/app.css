@@ -2,7 +2,12 @@
 body {
   background-color: #FCDDFE;
 }
-
-challengeGame {
-  float: right;
+h1 {
+   color: #67086E;
 }
+  canvas {
+    background: #eee;
+    display: block;
+    margin: 0;
+    float: right;
+  }

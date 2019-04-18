@@ -1,13 +1,23 @@
 {% include "base.html" %}
 
-<!--{% block challenge_head %} -->
 <style>
-    * { padding: 10px; margin: 0; }
-    canvas { background: #eee; display: block; margin: 0; float: right; }
+  * { padding: 25px 100px; margin: 0; }
+  h1 {
+     color: #67086E;
+  }
 </style>
-<!--{% endblock %} -->
 
 {% block body %}
-<canvas id="challengeGame" width="400" height="400"</canvas>
-<p> You are on the {{ page }} </p>
+<h1> Challenge 1 </h1>
+<canvas id="challengeGame" width="400" height="400" style="background: 	#32CD32; display: block; margin: 0; float: right; border:1px solid #000000"> </canvas>
+<canvas id="textEditor" width="400" height="400"  style="background: #FFFFFF; display: block; margin: 0; float: left; border:1px solid #000000"> </canvas>
+
+<script>
+  var canvas = document.getElementById("challengeGame");
+  var ctx = canvas.getContext("2d");
+
+  var canvas = document.getElementById("textEditor");
+  var ctx = canvas.getContext("2d");
+
+</script>
 {% endblock %}
