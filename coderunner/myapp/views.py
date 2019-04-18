@@ -13,7 +13,7 @@ def index(request):
         "title": "CodeRunner",
         "item_list": i_list
     }
-    return render(request, "base.html", context=context)
+    return render(request, "home.html", context=context)
 
 def challenge(request):
     i_list = ["Hi", 1, 2, 3]
