@@ -2,17 +2,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
   <meta charset="utf-8">
   <title>{{ title }}</title>
 </head>
 <body>
   {{ body }}
   <!--
+=======
+<title> CodeRunner</title>
+</head>
+<body>
+  <h4>CodeRunner</h4>
+>>>>>>> d1bef35e7c07c1ac1c1004982aad8b42f433c7a1
   <ul>
-  {% for item in item_list %}
-    <li>{{ item }}</li>
-  {% endfor %}
+    <li><a href="http://localhost:8000/">Home</a></li>
+    <li><a href="http://localhost:8000/challenge">Challenge</a></li>
+    <li><a href="http://localhost:8000/admin">Admin</a></li
   </ul>
+<<<<<<< HEAD
   Testing purposes-->
   {% block body %}
   {% endblock %}
@@ -26,6 +34,10 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="{% static "js/challenge.js" %}"></script>
 
+=======
+>>>>>>> d1bef35e7c07c1ac1c1004982aad8b42f433c7a1
 
+
+  <p> You are on the {{ page }} </p>
 </body>
 </html>
