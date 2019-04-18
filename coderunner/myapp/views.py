@@ -9,8 +9,8 @@ def index(request):
     i_list = ["Hi", 1, 2, 3]
 
     context = {
-        "body":"Hello World",
-        "title": "title",
+        "body":"Code Runner",
+        "title": "CodeRunner",
         "item_list": i_list
     }
     return render(request, "base.html", context=context)
