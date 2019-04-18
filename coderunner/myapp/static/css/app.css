@@ -3,7 +3,10 @@ body {
   background-color: #FCDDFE;
 }
 h1 {
-   color: #67086E;
+  font-family: Magneto;
+  background-color: #67086E;
+  text-align:center
+
 }
   canvas {
     background: #eee;
@@ -11,3 +14,8 @@ h1 {
     margin: 0;
     float: right;
   }
+  .menu{
+	display: inline;
+	padding: 10px;
+	background-color:#67086E;
+}

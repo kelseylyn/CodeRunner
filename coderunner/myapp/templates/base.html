@@ -1,4 +1,5 @@
 {% load static %}
+<link rel="stylesheet" href="{% static "css/app.css" %}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +9,11 @@
 <body>
 
   <h4>{{ body }}</h4>
-  <ul>
-    <li><a href="http://localhost:8000/home">Home</a></li>
-    <li><a href="http://localhost:8000/challenge">Challenge</a></li>
-    <li><a href="http://localhost:8000/admin">Admin</a></li>
-  </ul>
+  <center><ul>
+    <li class="menu"><a href="http://localhost:8000/home">Home</a></li>
+    <li class="menu"><a href="http://localhost:8000/challenge">Challenge</a></li>
+    <li class="menu"><a href="http://localhost:8000/admin">Admin</a></li>
+  </ul></center>
 
 <p> Logged in as: {{user}}</p>
   {% block body %}
