@@ -1,21 +1,65 @@
 /* color is for testing purposes only*/
+html{
+  background-color: #354151;
+}
 body {
-  background-color: #FCDDFE;
+  background-color: #b57d50;
+  outline-color:  #336699;
+  border: 5px solid #291f1d;
+  margin: 200px;
+  width: auto;
+  height: auto;
+  box-shadow: 5px 5px #291f1d;
 }
-h1 {
-  font-family: Magneto;
-  background-color: #67086E;
-  text-align:center
 
+h1 {
+  padding-top: 15px;
+  text-align: center;
+  background-color: #d5b19f;
+  font-weight: bold;
+  font-style: oblique;
+  color: #291f1d;
 }
-  canvas {
-    background: #eee;
+
+canvas {
+    background: black;
     display: block;
     margin: 0;
     float: right;
   }
-  .menu{
+
+.menu{
 	display: inline;
 	padding: 10px;
-	background-color:#67086E;
+	background-color: #d5b19f;
+  font-weight: bold;
+  font-style: oblique;
+  color: #291f1d;
+}
+
+.hilite{
+	color: white;
+	background-color:#b57d50;
+}
+
+ul{
+  color: white;
+  padding: 25px;
+
+}
+
+p{
+  text-align: center;
+}
+
+
+a:hover{
+	cursor:pointer;
+}
+
+div{
+  background-color: #d5b19f;
+  width:auto;
+  border: 2px solid #291f1d;
+
 }

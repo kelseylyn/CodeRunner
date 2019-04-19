@@ -7,14 +7,16 @@
   <title>{{ title }}</title>
 </head>
 <body>
+  <div id="titlecard">
+  <h1>{{ body }}</h1>
 
-  <h4>{{ body }}</h4>
   <center><ul>
     <li class="menu"><a href="http://localhost:8000/home">Home</a></li>
     <li class="menu"><a href="http://localhost:8000/challenge">Challenge</a></li>
     <li class="menu"><a href="http://localhost:8000/admin">Admin</a></li>
   </ul></center>
 
+</div>
 <p> Logged in as: {{user}}</p>
   {% block body %}
   {% endblock %}
