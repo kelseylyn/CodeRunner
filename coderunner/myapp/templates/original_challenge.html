@@ -116,7 +116,9 @@
     canvas.addEventListener("keydown", eventv => {
       // will be the first function the user calls
     if (event.key == "r") { // will have him run conitunously
+      if(runner_x_pos < 120) {
         setInterval(img.onload, 10);
+      }
 
     }
     });

@@ -2,6 +2,7 @@
 html{
   background-color: #354151;
 }
+
 body {
   background-color: #b57d50;
   outline-color:  #336699;
@@ -10,6 +11,8 @@ body {
   width: auto;
   height: auto;
   box-shadow: 5px 5px #291f1d;
+  overflow:
+  
 }
 
 h1 {
@@ -20,13 +23,6 @@ h1 {
   font-style: oblique;
   color: #291f1d;
 }
-
-canvas {
-    background: black;
-    display: block;
-    margin: 0;
-    float: right;
-  }
 
 .menu{
 	display: inline;
@@ -48,6 +44,7 @@ ul{
 
 }
 
+
 p{
   text-align: center;
 }
@@ -61,5 +58,6 @@ div{
   background-color: #d5b19f;
   width:auto;
   border: 2px solid #291f1d;
+  overflow: auto;
 
 }
