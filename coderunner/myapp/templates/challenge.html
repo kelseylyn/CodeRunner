@@ -33,7 +33,10 @@ if(keyPressed == upKey) {
   <!--  <iframe id="code"></iframe> -->
   <canvas id = "challengeGame" width ="700" height="500" style="background:#e6faff; display: block; margin: auto; border:1px solid #000000"></canvas>
   <script>
-
+  /*
+    Referred to https://github.com/frankarendpoth/frankarendpoth.github.io/blob/master/content/pop-vlog/javascript/2017/009-control/control.js
+    just for how to get the chracter to jump and move.
+  */
   var launch_game = 0;
   var correctly_compiled = 0;
     function getUserJS() {
@@ -72,10 +75,6 @@ if(keyPressed == upKey) {
     var runner_y_pos = 255;
     var if_jumping = false;
     var flag = 0;
-    /*
-      Referred to https://github.com/frankarendpoth/frankarendpoth.github.io/blob/master/content/pop-vlog/javascript/2017/009-control/control.js
-      for how to get the chracter to jump.
-    */
     rectangle = {
 
       height:32,
