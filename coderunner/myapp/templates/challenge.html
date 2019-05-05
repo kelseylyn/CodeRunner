@@ -1,84 +1,200 @@
-<!--{% include "base.html" %}
 {% load static %}
-
- <link rel="stylesheet" href="{% static "css/app.css" %}"
--->
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>{{ title }}</title>
-</head>
-<body>
+  <head>
+  	<title>Challenge 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static "css/challengestyle.css" %}" />
+    <link rel="stylesheet" href="{% static "css/app.css" %}" />
+  </head>
 
-  <div id="titlecard">
+  <body>
+    <div id="titlecard">
+    <center><ul>
+      <li class="menu"><a href="http://localhost:8000/home">Home</a></li>
+      <li class="menu"><a href="http://localhost:8000/challenge">Challenge</a></li>
+      <li class="menu"><a href="http://localhost:8000/admin">Admin</a></li>
+    </ul></center>
 
-  <center><ul>
-    <li class="menu"><a href="http://localhost:8000/home">Home</a></li>
-    <li class="menu"><a href="http://localhost:8000/challenge">Challenge</a></li>
-    <li class="menu"><a href="http://localhost:8000/admin">Admin</a></li>
-  </ul></center>
+    </div>
+    <p>
+      <button onclick="getUserJS()">Compile</button>
+    </p>
+    <!-- This will be for the user to enter their "javascript" -->
+<textarea id="js" placeholder="JavaScript">
+if(keyPressed == rightKey) {
+//insert solution
+}
+if(keyPressed == upKey) {
+//insert solution
+}
+</textarea>
 
-  </div>
-  <p> Challenge 1</p>
-  <canvas id = "challengeGame" width ="500" height="400" style="background:#e6faff; display: block; margin: auto; border:1px solid #000000"></canvas>
+  <!--  <iframe id="code"></iframe> -->
+  <canvas id = "challengeGame" width ="700" height="500" style="background:#e6faff; display: block; margin: auto; border:1px solid #000000"></canvas>
+  <script>
 
-<script>
-  var canvas = document.getElementById("challengeGame");
-  var game = canvas.getContext("2d");
+  var launch_game = 0;
+  var correctly_compiled = 0;
+    function getUserJS() {
+      launch_game = 1;
+      var total_lines_match = 0;
+      var correct_lines = ["if(keyPressed == rightKey) {", "//insert solution", "}", "if(keyPressed == upKey) {", "//insert solution", "}"];
+      var lines = document.getElementById('js').innerHTML.split('\n');
+      for(var i = 0;i < lines.length;i++){
+        //code here using lines[i] which will give you each line
+        if(lines[i] == correct_lines[i]) {
+          total_lines_match++;
+          //window.alert(lines[i]);
+        }
+      }
+    /*  if(total_lines_match == 4) {
+        correctly_compiled = 1;
+        launch_game = 1;
+      } else {
+        window.alert("Incorrect: Unable to compile");
+      }*/
 
+  //    window.alert(total_lines_match);
+      //make sure when compare total lines matched checked if < 6
+    }
+  //  getUserJS();
+
+    function correctInput() {
+      launch_game = 1;
+    }
+
+  function challengeGame(){
+    var context, controller, image, loop;
+    var canvas = document.getElementById("challengeGame");
+    var game = canvas.getContext("2d");
     var runner_x_pos = 10;
     var runner_y_pos = 255;
-    var runner_flag = 0;
-    var img = new Image();
-    img.onload = function (runner_flag) {
-      //game.clearImage(img, runner_x_pos, runner_y_pos);
-      game.clearRect(0, 0, canvas.width, canvas.height);
-      game.beginPath();
-      game.drawImage(img, runner_x_pos, runner_y_pos);
-      game.closePath();
-      /* for now using keys to represent function calls until I get it working to
-      handle user input on which functions they want to call. So in its place there
-      will be key presses instead*/
+    var if_jumping = false;
+    var flag = 0;
+    /*
+      Referred to https://github.com/frankarendpoth/frankarendpoth.github.io/blob/master/content/pop-vlog/javascript/2017/009-control/control.js
+      for how to get the chracter to jump.
+    */
+    rectangle = {
 
-      /* This chunk will stay here because this will handle the run function().  */
-      //initial run at the beginning when the "r" is pressed on the 1st block
-      if(runner_x_pos < 120) {
-        runner_x_pos +=1;
-      } else if((runner_x_pos > 189) && (runner_x_pos < 290)) { // next part of run for the second green block
-        runner_x_pos +=1;
-      } else if((runner_x_pos > 354) && (runner_x_pos < 450)) { // is the last piece for the 3rd green block
-        runner_x_pos +=1;
+      height:32,
+      jumping:true,
+      width:32,
+      x:10, // center of the canvas
+      x_velocity:0,
+      y:255,
+      y_velocity:0
+
+    };
+
+    controller = {
+
+      left:false,
+      right:false,
+      up:false,
+      keyListener:function(event) {
+
+        var key_state = (event.type == "keydown")?true:false;
+
+        switch(event.keyCode) {
+
+          case 37:// left key
+            controller.left = key_state;
+          break;
+          case 38:// up key
+            controller.up = key_state;
+          break;
+          case 39:// right key
+            controller.right = key_state;
+          break;
+
+        }
+
       }
 
-      // this is used to incorporate the jump command
-      // first just have it go through the whole game on its own
-      // then break it apart into the different commands they are each for
-      // this needs to be its own chunk and only called when the next key "j" is pushed.
-      if((runner_x_pos > 119) && (runner_x_pos < 190)) { // this if statement is for the first jump
-        if(runner_y_pos > 200) {
-           runner_y_pos -=1;
-        }
-        runner_x_pos+=1;
-      } else { // this will be for the second jump from the 2nd block to the 3rd one
-        if((runner_x_pos > 289) && (runner_x_pos < 355)) {
-          if(runner_y_pos < 250) {
-            runner_y_pos+=1;
-          }
-          runner_x_pos+=1;
+    };
+
+    loop = function() {
+      if (controller.up && rectangle.jumping == false && launch_game == 1) {
+
+        rectangle.y_velocity -= 20;
+        rectangle.jumping = true;
+
+      }
+      if (controller.left && launch_game == 1) {
+
+        rectangle.x_velocity -= 0.5;
+
+      }
+      if (controller.right && launch_game == 1) {
+
+        rectangle.x_velocity += 0.5;
+
+      }
+      if(rectangle.x <700 && launch_game == 1){
+        rectangle.y_velocity += 1.5;// gravity
+        rectangle.x += rectangle.x_velocity;
+        rectangle.y += rectangle.y_velocity;
+        rectangle.x_velocity *= 0.9;// friction
+        rectangle.y_velocity *= 0.9;// friction
+
+      }
+      //320 370, 150 200
+      if(((rectangle.x >= 150 && rectangle.x <= 180 && rectangle.y >245) || (rectangle.x >=320 && rectangle.x <=350 && rectangle.y > 245)) && launch_game ==1){
+        rectangle.y+=rectangle.y_velocity;
+        flag = 1;
+      }
+      if ((rectangle.y > 300 - 16 - 32) && (launch_game == 1)) {
+        if(flag == 0){
+          rectangle.jumping = false;
+          rectangle.y = 300 - 16 - 32;
+          rectangle.y_velocity = 0;
+
         }
       }
+      if(rectangle.y > 500) {
+        game.font = "20px sans-serif";
+        game.fillStyle = "black";
+        game.fillText("GAME OVER", 270, 235);
+      }
+      if(rectangle.x >=700) {
+        game.font = "25px sans-serif";
+        game.fillStyle = "magenta";
+        game.fillText("GOOD JOB!!", 275, 235);
+      }
+/*      if (rectangle.x < -32) {
 
+        rectangle.x = 320;
+
+      } if (rectangle.x > 320) {// if rectangle goes past right boundary
+
+        rectangle.x = -32;
+
+      }
+*/
       game.beginPath();
       game.strokeStyle = "000000";
       game.stroke();
       game.rect(0,300, 150, 200);
-      game.rect(200, 250, 120, 250);
-      game.rect(370, 300, 130, 200);
+      game.rect(200, 300, 120, 200);
+      game.rect(370, 300, 400, 200);
       game.fillStyle = "#53c653";
       game.fill();
-      game.strokeStyle = "000000";
+      game.strokeStyle = "#000000";
       game.stroke();
       game.closePath();
+
+      //ending banner
+      game.beginPath();
+      game.rect(660, 250, 40, 50);
+      game.fillStyle="#000000"
+      game.fill();
+      game.closePath();
+
+      game.font = "20px sans-serif";
+      game.fillStyle = "#000000";
+      game.fillText("END", 660, 245);
 
       //1st cloud
       game.beginPath();
@@ -92,7 +208,7 @@
       game.fillStyle = "#FFFFFF";
       game.fill();
       game.closePath();
-
+//320 370, 150 200
       //2nd cloud
       game.beginPath();
       game.arc(300, 75, 25, 0, Math.PI*2, false);
@@ -109,26 +225,45 @@
       game.fillStyle = "#FFFFFF";
       game.fill();
       game.closePath();
-    }
-    img.src = "{% static "images/code_runner.png" %}";
 
-    canvas.tabIndex = 1000;
-    canvas.addEventListener("keydown", eventv => {
-      // will be the first function the user calls
-    if (event.key == "r") { // will have him run conitunously
-        setInterval(img.onload, 10);
+      //3rd cloud
+      game.beginPath();
+      game.arc(500, 75, 25, 0, Math.PI*2, false);
+      game.arc(525, 75, 25, 0, Math.PI*2, false);
+      game.arc(550, 85, 25, 0, Math.PI*2, false);
+      game.arc(575, 100, 25, 0, Math.PI*2, false);
+      game.arc(590, 100, 25, 0, Math.PI*2, false);
+      game.arc(500, 100, 25, 0, Math.PI*2, false);
+      game.arc(525, 100, 25, 0, Math.PI*2, false);
+      game.arc(475, 100, 25, 0, Math.PI*2, false);
+      game.arc(575, 110, 25, 0, Math.PI*2, false);
+      game.arc(560, 110, 25, 0, Math.PI*2, false);
+      game.arc(540, 110, 25, 0, Math.PI*2, false);
+      game.fillStyle = "#FFFFFF";
+      game.fill();
+      game.closePath();
 
-    }
-    });
-/*
-    if (event.key == "j") { // will have him run conitunously
-      setInterval(img.onload, 10);
-    }
-    });
-*/
 
 
+      var img = new Image();
+      img.onload = function () {
+        game.clearRect(0, 0, canvas.width, canvas.height);
+        game.beginPath();
+        game.drawImage(img, rectangle.x, rectangle.y);
+        game.closePath();
+      }
+      img.src = "{% static "images/code_runner.png" %}";
+      window.requestAnimationFrame(loop);
+    };
+//    document.onkeydown = keyDown;
+    window.addEventListener("keydown", controller.keyListener)
+    window.addEventListener("keyup", controller.keyListener);
 
-</script>
-</body>
+    window.requestAnimationFrame(loop);
+  }
+  challengeGame();
+  </script>
+<!--    <script src="{% static "js/loadchallenge.js" %}"></script> -->
+
+  </body>
 </html>
