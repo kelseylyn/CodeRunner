@@ -9,11 +9,14 @@
   </head>
 
   <body>
+
     <div id="titlecard">
+    <h1> Challenge 1 </h1>
     <center><ul>
       <li class="menu"><a href="http://localhost:8000/home">Home</a></li>
       <li class="menu"><a href="http://localhost:8000/challenge">Challenge</a></li>
       <li class="menu"><a href="http://localhost:8000/admin">Admin</a></li>
+      <li class="menu"><a href="http://localhost:8000/documentation">Documentation</a></li>
     </ul></center>
 
     </div>
@@ -21,7 +24,7 @@
       <button onclick="getUserJS()">Compile</button>
     </p>
     <!-- This will be for the user to enter their "javascript" -->
-<textarea id="js" placeholder="JavaScript">
+<textarea id="js" placeholder="Game Code">
 if(keyPressed == rightKey) {
 //insert solution
 }
@@ -38,33 +41,22 @@ if(keyPressed == upKey) {
     just for how to get the chracter to jump and move.
   */
   var launch_game = 0;
-  var correctly_compiled = 0;
     function getUserJS() {
-      launch_game = 1;
-      var total_lines_match = 0;
-      var correct_lines = ["if(keyPressed == rightKey) {", "//insert solution", "}", "if(keyPressed == upKey) {", "//insert solution", "}"];
-      var lines = document.getElementById('js').innerHTML.split('\n');
+      var correct_input = 0;
+      var correct_lines = ["if(keyPressed == rightKey) {", "run();", "}", "if(keyPressed == upKey) {", "jump();", "}"];
+      var user_input = document.getElementById("js").value;
+      var lines = user_input.split('\n');
       for(var i = 0;i < lines.length;i++){
-        //code here using lines[i] which will give you each line
         if(lines[i] == correct_lines[i]) {
-          total_lines_match++;
-          //window.alert(lines[i]);
+          correct_input++;
         }
       }
-    /*  if(total_lines_match == 4) {
-        correctly_compiled = 1;
+      if(correct_input == 6) {
         launch_game = 1;
       } else {
-        window.alert("Incorrect: Unable to compile");
-      }*/
+        window.alert("Incorrect: Unable to compile. Try Again.");
+      }
 
-  //    window.alert(total_lines_match);
-      //make sure when compare total lines matched checked if < 6
-    }
-  //  getUserJS();
-
-    function correctInput() {
-      launch_game = 1;
     }
 
   function challengeGame(){
@@ -75,7 +67,7 @@ if(keyPressed == upKey) {
     var runner_y_pos = 255;
     var if_jumping = false;
     var flag = 0;
-    rectangle = {
+    character = {
 
       height:32,
       jumping:true,
@@ -115,63 +107,54 @@ if(keyPressed == upKey) {
     };
 
     loop = function() {
-      if (controller.up && rectangle.jumping == false && launch_game == 1) {
+      if (controller.up && character.jumping == false && launch_game == 1) {
 
-        rectangle.y_velocity -= 20;
-        rectangle.jumping = true;
+        character.y_velocity -= 20;
+        character.jumping = true;
 
       }
       if (controller.left && launch_game == 1) {
 
-        rectangle.x_velocity -= 0.5;
+        character.x_velocity -= 0.5;
 
       }
       if (controller.right && launch_game == 1) {
 
-        rectangle.x_velocity += 0.5;
+        character.x_velocity += 0.5;
 
       }
-      if(rectangle.x <700 && launch_game == 1){
-        rectangle.y_velocity += 1.5;// gravity
-        rectangle.x += rectangle.x_velocity;
-        rectangle.y += rectangle.y_velocity;
-        rectangle.x_velocity *= 0.9;// friction
-        rectangle.y_velocity *= 0.9;// friction
+      if(character.x <700 && launch_game == 1){
+        character.y_velocity += 1.5;// gravity
+        character.x += character.x_velocity;
+        character.y += character.y_velocity;
+        character.x_velocity *= 0.9;// friction
+        character.y_velocity *= 0.9;// friction
 
       }
-      //320 370, 150 200
-      if(((rectangle.x >= 150 && rectangle.x <= 180 && rectangle.y >245) || (rectangle.x >=320 && rectangle.x <=350 && rectangle.y > 245)) && launch_game ==1){
-        rectangle.y+=rectangle.y_velocity;
+
+      if(((character.x >= 150 && character.x <= 170 && character.y >245) || (character.x >=320 && character.x <=340 && character.y > 245)) && launch_game ==1){
+        character.y+=character.y_velocity;
         flag = 1;
       }
-      if ((rectangle.y > 300 - 16 - 32) && (launch_game == 1)) {
+      if ((character.y > 300 - 16 - 32) && (launch_game == 1)) {
         if(flag == 0){
-          rectangle.jumping = false;
-          rectangle.y = 300 - 16 - 32;
-          rectangle.y_velocity = 0;
+          character.jumping = false;
+          character.y = 300 - 16 - 32;
+          character.y_velocity = 0;
 
         }
       }
-      if(rectangle.y > 500) {
+      if(character.y > 500) {
         game.font = "20px sans-serif";
         game.fillStyle = "black";
         game.fillText("GAME OVER", 270, 235);
       }
-      if(rectangle.x >=700) {
+      if(character.x >=700) {
         game.font = "25px sans-serif";
         game.fillStyle = "magenta";
         game.fillText("GOOD JOB!!", 275, 235);
       }
-/*      if (rectangle.x < -32) {
 
-        rectangle.x = 320;
-
-      } if (rectangle.x > 320) {// if rectangle goes past right boundary
-
-        rectangle.x = -32;
-
-      }
-*/
       game.beginPath();
       game.strokeStyle = "000000";
       game.stroke();
@@ -184,7 +167,7 @@ if(keyPressed == upKey) {
       game.stroke();
       game.closePath();
 
-      //ending banner
+      //End square
       game.beginPath();
       game.rect(660, 250, 40, 50);
       game.fillStyle="#000000"
@@ -207,7 +190,7 @@ if(keyPressed == upKey) {
       game.fillStyle = "#FFFFFF";
       game.fill();
       game.closePath();
-//320 370, 150 200
+
       //2nd cloud
       game.beginPath();
       game.arc(300, 75, 25, 0, Math.PI*2, false);
@@ -243,18 +226,17 @@ if(keyPressed == upKey) {
       game.closePath();
 
 
-
       var img = new Image();
       img.onload = function () {
         game.clearRect(0, 0, canvas.width, canvas.height);
         game.beginPath();
-        game.drawImage(img, rectangle.x, rectangle.y);
+        game.drawImage(img, character.x, character.y);
         game.closePath();
       }
       img.src = "{% static "images/code_runner.png" %}";
       window.requestAnimationFrame(loop);
     };
-//    document.onkeydown = keyDown;
+
     window.addEventListener("keydown", controller.keyListener)
     window.addEventListener("keyup", controller.keyListener);
 
@@ -262,7 +244,6 @@ if(keyPressed == upKey) {
   }
   challengeGame();
   </script>
-<!--    <script src="{% static "js/loadchallenge.js" %}"></script> -->
 
   </body>
 </html>

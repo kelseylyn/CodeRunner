@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+      <link rel="stylesheet" href="{% static "css/documentationstyle.css" %}" />
+      <link rel="stylesheet" href="{% static "css/app.css" %}" />
+</head>
+<body>
+  <div id="titlecard">
+  <h1>{{ body }}</h1>
+
+  <center><ul>
+    <li class="menu"><a href="http://localhost:8000/home">Home</a></li>
+    <li class="menu"><a href="http://localhost:8000/challenge">Challenge</a></li>
+    <li class="menu"><a href="http://localhost:8000/admin">Admin</a></li>
+    <li class="menu"><a href="http://localhost:8000/documentation">Documentation</a></li>
+  </ul></center>
+
+  </div>
+  <h2> Functions:</h2>
+    <h3> run(); - Make the game character run. </h3>
+    <h3> jump(); - Make the game character jump. </h3>
+  <h2> Handling Key Presses: </h2>
+    <h3> keyPressed - Used to detect when a key is pressed. </h3>
+    <h3> upKey - Up arrow key </h3>
+    <h3> rightKey - Right arrow key  </h3>
+    <h3> downKey - Down arrow key </h3>
+    <h3> leftKey - Left arrow ket </h3>
+</body>
+</html>

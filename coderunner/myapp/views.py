@@ -25,3 +25,14 @@ def challenge(request):
         "page": "challenge page"
     }
     return render(request, "challenge.html", context=context)
+
+def documentation(request):
+    i_list = ["Hi", 1, 2, 3]
+
+    context = {
+        "body":"Documentation",
+        "title": "Documentation",
+        "item_list": i_list,
+        "page": "challenge page"
+    }
+    return render(request, "documentation.html", context=context)
