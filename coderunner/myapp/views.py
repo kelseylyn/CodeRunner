@@ -36,3 +36,14 @@ def documentation(request):
         "page": "challenge page"
     }
     return render(request, "documentation.html", context=context)
+
+def faq(request):
+    i_list = ["Hi", 1, 2, 3]
+
+    context = {
+        "body":"Code Runner",
+        "title": "CodeRunner",
+        "item_list": i_list,
+        "page": "Live Chat"
+    }
+    return render(request, "faq.html", context=context)
