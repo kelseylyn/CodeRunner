@@ -6,6 +6,15 @@ services:
     build: .
     volumes:
        - .:/code
+    depends_on:
+       - redis
+    links:
+       - redis
     ports:
        - 8000:8000
     command: python /code/coderunner/manage.py runserver 0.0.0.0:8000
+
+  redis:
+    image: redis
+    expose:
+      - 6379
