@@ -31,13 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'myapp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp',
+    'channels',
+
 ]
 
 MIDDLEWARE = [
@@ -69,8 +71,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'coderunner.wsgi.application'
-
-
+# mysite/settings.py
+# Channels
+ASGI_APPLICATION = 'coderunner.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -78,6 +89,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'TEST': {
+            'NAME': os.path.join(BASE_DIR, 'db_test.sqlite3')
+        }
     }
 }
 
