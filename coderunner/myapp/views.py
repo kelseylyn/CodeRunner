@@ -6,8 +6,6 @@ import json
 
 # Create your views here.
 
-#def index(request):
-    #return HttpResponse("Code Runner :)")
 
 def index(request):
     i_list = ["Hi", 1, 2, 3]

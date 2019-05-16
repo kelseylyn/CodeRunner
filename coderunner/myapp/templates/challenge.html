@@ -24,7 +24,7 @@
     <p>
       <button onclick="getUserJS()">Compile</button>
     </p>
-    <!-- This will be for the user to enter their "javascript" -->
+    <!-- This will be for the user to enter their "code" for the game -->
 <textarea id="js" placeholder="Game Code">
 if(keyPressed == rightKey) {
 //insert solution
@@ -33,34 +33,37 @@ if(keyPressed == upKey) {
 //insert solution
 }
 </textarea>
-
-  <!--  <iframe id="code"></iframe> -->
+  
+<!-- Create canvas for game challenge on the right of the screen -->
   <canvas id = "challengeGame" width ="700" height="500" style="background:#e6faff; display: block; margin: auto; border:1px solid #000000"></canvas>
   <script>
+
   /*
     Referred to https://github.com/frankarendpoth/frankarendpoth.github.io/blob/master/content/pop-vlog/javascript/2017/009-control/control.js
     just for how to get the chracter to jump and move.
   */
-  var launch_game = 0;
+
+  var launch_game = 0; // flag to launch the game 
     function getUserJS() {
       var correct_input = 0;
       var correct_lines = ["if(keyPressed == rightKey) {", "run();", "}", "if(keyPressed == upKey) {", "jump();", "}"];
       var user_input = document.getElementById("js").value;
       var lines = user_input.split('\n');
-      for(var i = 0;i < lines.length;i++){
+      for(var i = 0;i < lines.length;i++){ // check for correct input from user
         if(lines[i] == correct_lines[i]) {
           correct_input++;
         }
       }
       if(correct_input == 6) {
-        launch_game = 1;
+        launch_game = 1; // if "compiles" set flag to 1 so user can play game
       } else {
         window.alert("Incorrect: Unable to compile. Try Again.");
       }
 
     }
 
-  function challengeGame(){
+  //whole game is inside function
+  function challengeGame(){ 
     var context, controller, image, loop;
     var canvas = document.getElementById("challengeGame");
     var game = canvas.getContext("2d");
@@ -73,7 +76,7 @@ if(keyPressed == upKey) {
       height:32,
       jumping:true,
       width:32,
-      x:10, // center of the canvas
+      x:10, 
       x_velocity:0,
       y:255,
       y_velocity:0
@@ -81,12 +84,10 @@ if(keyPressed == upKey) {
     };
 
     controller = {
-
       left:false,
       right:false,
       up:false,
       keyListener:function(event) {
-
         var key_state = (event.type == "keydown")?true:false;
 
         switch(event.keyCode) {
@@ -100,56 +101,51 @@ if(keyPressed == upKey) {
           case 39:// right key
             controller.right = key_state;
           break;
-
         }
-
       }
-
     };
 
     loop = function() {
       if (controller.up && character.jumping == false && launch_game == 1) {
-
         character.y_velocity -= 20;
         character.jumping = true;
-
       }
+
       if (controller.left && launch_game == 1) {
-
         character.x_velocity -= 0.5;
-
       }
+
       if (controller.right && launch_game == 1) {
-
         character.x_velocity += 0.5;
-
       }
+
       if(character.x <700 && launch_game == 1){
         character.y_velocity += 1.5;// gravity
         character.x += character.x_velocity;
         character.y += character.y_velocity;
         character.x_velocity *= 0.9;// friction
         character.y_velocity *= 0.9;// friction
-
       }
 
       if(((character.x >= 150 && character.x <= 170 && character.y >245) || (character.x >=320 && character.x <=340 && character.y > 245)) && launch_game ==1){
         character.y+=character.y_velocity;
-        flag = 1;
+        flag = 1; // means character died
       }
+
       if ((character.y > 300 - 16 - 32) && (launch_game == 1)) {
-        if(flag == 0){
+        if(flag == 0){ // if 0 then character still alive
           character.jumping = false;
           character.y = 300 - 16 - 32;
           character.y_velocity = 0;
-
         }
       }
+
       if(character.y > 500) {
         game.font = "20px sans-serif";
         game.fillStyle = "black";
         game.fillText("GAME OVER", 270, 235);
       }
+
       if(character.x >=700) {
         game.font = "25px sans-serif";
         game.fillStyle = "magenta";
